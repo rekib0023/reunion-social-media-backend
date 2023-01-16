@@ -1,0 +1,47 @@
+[
+  {
+    "model": "user.User",
+    "pk": 1,
+    "fields": {
+      "email": "John@example.com",
+      "password": "pbkdf2_sha256$390000$MzUdMcCuYcBBWxkedPCxql$Kh94tylXoyUqQlgKlK6kykR4XSoABvyjPhRhfi00hN4=",
+      "username": "John"
+    }
+  },
+  {
+    "model": "user.User",
+    "pk": 2,
+    "fields": {
+      "email": "Paul@example.com",
+      "password": "pbkdf2_sha256$390000$eRtQzuYuxNeofKz7pGKMQn$BTrOePa7bakzph73d4wGISsUcpeLKpsyyRApfGk4d9U=",
+      "username": "Paul"
+    }
+  },
+  {
+    "model": "user.User",
+    "pk": 3,
+    "fields": {
+      "email": "Mary@example.com",
+      "password": "pbkdf2_sha256$390000$lKEGmgixgpjqaJth3ryIYo$JBJqx+bwuqP7atX6JrfkiEpBPYvxCbWygfDgET3RbFw=",
+      "username": "Mary"
+    }
+  },
+  {
+    "model": "user.User",
+    "pk": 4,
+    "fields": {
+      "email": "Doe@example.com",
+      "password": "pbkdf2_sha256$390000$kApByMkfqO2Wzq8YZoJnPM$8OnJT4enFlnzloo43guuRtUXfXK44cF6j14xaVnQqBQ=",
+      "username": "Doe"
+    }
+  },
+  {
+    "model": "user.User",
+    "pk": 5,
+    "fields": {
+      "email": "Jacob@example.com",
+      "password": "pbkdf2_sha256$390000$h5OyD0OXKZBgGfGkY15JKX$GTNuR6OuxPAnvU0ULssyU3X9kv28L8lJIwHMSNpZgNE=",
+      "username": "Jacob"
+    }
+  }
+]
