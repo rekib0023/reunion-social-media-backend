@@ -102,7 +102,7 @@ class PostLikeCommentViewSet(viewsets.ViewSet):
 
     def unlike(self, request, pk):
         try:
-            post_like = get_object_or_404(PostLike, pk=pk, user=request.user)
+            post_like = get_object_or_404(PostLike, post_id=pk, user=request.user)
             post_like.delete()
             return Response(
                 status=status.HTTP_201_CREATED,

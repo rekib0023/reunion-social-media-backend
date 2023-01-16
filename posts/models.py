@@ -18,6 +18,13 @@ class PostLike(models.Model):
     user = models.ForeignKey("user.User", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["post", "user"], name="post_user_like_unique"
+            )
+        ]
+
 
 class PostComment(models.Model):
     post = models.ForeignKey(
