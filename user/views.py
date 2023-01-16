@@ -1,10 +1,12 @@
-from rest_framework import viewsets, status
-from user.models import User, Followings
-from user.serializers import UserSerializer
-from rest_framework.response import Response
 from django.contrib.auth.hashers import check_password
-from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from rest_framework import status, viewsets
 from rest_framework.exceptions import APIException
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from user.models import Followings, User
+from user.serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ViewSet):
@@ -39,16 +41,30 @@ class UserViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
-    def get(self, request):
-        user = User.objects.get(pk=request.user.pk)
-        serializer = UserSerializer(user)
-        return Response(
-            {
-                "error": None,
-                "msg": "Ok",
-                "data": serializer.data,
-            }
-        )
+
+class UserDetailViewSet(viewsets.ViewSet):
+    permission_classes = (IsAuthenticated,)
+
+    def retrieve(self, request):
+        try:
+            user = get_object_or_404(User, pk=request.user.pk)
+            serializer = UserSerializer(user)
+            return Response(
+                {
+                    "error": None,
+                    "msg": "Ok",
+                    "data": serializer.data,
+                }
+            )
+        except Exception as err:
+            return Response(
+                {
+                    "error": str(err),
+                    "msg": "Not Found",
+                    "data": None,
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
 
 class FollowViewSet(viewsets.ViewSet):
@@ -84,7 +100,9 @@ class FollowViewSet(viewsets.ViewSet):
         )
 
     def unfollow(self, request, user_id):
-        following = Followings.objects.filter(user_id=request.user.pk, following_id=user_id).first()
+        following = Followings.objects.filter(
+            user_id=request.user.pk, following_id=user_id
+        ).first()
         if not following:
             return Response(
                 {
@@ -92,7 +110,7 @@ class FollowViewSet(viewsets.ViewSet):
                     "msg": "Not found",
                     "data": None,
                 },
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
         try:
             following.delete()

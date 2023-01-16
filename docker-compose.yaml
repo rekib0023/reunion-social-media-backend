@@ -15,6 +15,13 @@ services:
     image: postgres:15.1-bullseye
     restart: always
     environment:
+      SECRET_KEY: django-insecure-1b2ylt10^wdohmvf12xln*2k(we!e0*km6m8b$$7gno76z(!y@k
+      DEBUG: 1
+      NAME: postgres
+      USER: postgres
+      PASSWORD: password
+      HOST: localhost
+      PORT: 55432
       POSTGRES_DB: reunion
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password

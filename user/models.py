@@ -1,11 +1,9 @@
 from datetime import datetime, timedelta
+
 import jwt
 from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    PermissionsMixin,
-)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -45,5 +43,7 @@ class Followings(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['user', 'following'], name='follower_following_unique')
+            models.UniqueConstraint(
+                fields=["user", "following"], name="follower_following_unique"
+            )
         ]
