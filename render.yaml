@@ -1,9 +1,0 @@
-services:
-  - type: web
-    env: docker
-    name: rn-backend
-    repo: https://github.com/rekib0023/reunion-social-media-backend.git
-    buildCommand: docker-compose build
-
-databases:
-  - name: rn-db

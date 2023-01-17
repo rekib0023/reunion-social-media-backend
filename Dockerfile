@@ -15,3 +15,7 @@ RUN pip install --no-cache-dir --requirement /app/requirements.txt
 COPY . /app
 
 EXPOSE 8000
+
+RUN ["python", "manage.py", "migrate"]
+RUN ["python", "manage.py", "loaddata", "user/fixtures/user.json"]
+RUN ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
