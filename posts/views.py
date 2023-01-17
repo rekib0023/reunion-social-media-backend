@@ -24,7 +24,7 @@ class PostViewSet(viewsets.ViewSet):
         )
 
     def list(self, request):
-        posts = Posts.objects.filter(created_by=request.user).all()
+        posts = Posts.objects.order_by('-created_at').filter(created_by=request.user).all()
         serializer = PostSerializer(posts, many=True)
         return Response(
             {
