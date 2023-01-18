@@ -71,7 +71,7 @@ class FollowViewSet(viewsets.ViewSet):
     permission_classes = (IsAuthenticated,)
 
     def follow(self, request, user_id):
-        if request.user.pk == user_id:
+        if request.user.pk == int(user_id):
             return Response(
                 {
                     "error": "Cannot follow self",

@@ -1,9 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 
-from posts.models import Posts, PostLike, PostComment
+from posts.models import PostComment, PostLike, Posts
 from posts.serializers import BasePostSerializer, PostSerializer
 
 
@@ -24,7 +24,9 @@ class PostViewSet(viewsets.ViewSet):
         )
 
     def list(self, request):
-        posts = Posts.objects.order_by('-created_at').filter(created_by=request.user).all()
+        posts = (
+            Posts.objects.order_by("-created_at").filter(created_by=request.user).all()
+        )
         serializer = PostSerializer(posts, many=True)
         return Response(
             {
@@ -105,7 +107,7 @@ class PostLikeCommentViewSet(viewsets.ViewSet):
             post_like = get_object_or_404(PostLike, post_id=pk, user=request.user)
             post_like.delete()
             return Response(
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_204_NO_CONTENT,
             )
         except Exception as err:
             return Response(
@@ -120,7 +122,7 @@ class PostLikeCommentViewSet(viewsets.ViewSet):
     def comment(self, request, pk):
         try:
             post = get_object_or_404(Posts, pk=pk)
-            msg = request.data.pop("comment")
+            msg = request.data.get("comment")
             comment = PostComment(post=post, comment=msg, commented_by=request.user)
             comment.save()
             comment.refresh_from_db()
