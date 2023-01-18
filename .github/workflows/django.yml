@@ -26,5 +26,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+        SECRET_KEY: ${{SECRET_KEY}}
+        DEBUG: ${{DEBUG}}
+        POSTGRES_DB: ${{POSTGRES_DB}}
+        POSTGRES_USER: ${{POSTGRES_USER}}
+        POSTGRES_PASSWORD: ${{POSTGRES_PASSWORD}}
+        DB_HOST: ${{DB_HOST}}
+        DB_PORT: ${{DB_PORT}}
       run: |
         python manage.py test
