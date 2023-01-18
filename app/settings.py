@@ -1,15 +1,13 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 import dj_database_url
 
-load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = os.environ.get("DEBUG")
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ['*']
 
@@ -61,7 +59,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default":  dj_database_url.parse(os.environ['DATABASE_URL'])
+    "default":  dj_database_url.parse(os.getenv['DATABASE_URL'])
 }
 
 # Password validation
